@@ -4,7 +4,7 @@ import { buttonVariants } from './ui/button';
 
 export default function Navbar() {
   return (
-    <nav className="flex justify-between m-4">
+    <nav className="flex justify-between m-4 py-5">
       <h1>Home</h1>
       <div className="flex gap-x-2 items-center">
         <Link href="/new" className={buttonVariants({ variant: 'secondary' })}>

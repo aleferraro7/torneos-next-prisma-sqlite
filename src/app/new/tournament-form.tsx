@@ -18,15 +18,34 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import prisma from '@/lib/prisma';
+import { redirect } from 'next/navigation';
 
 export function TournamentForm() {
   async function createTournament(formData: FormData) {
     'use server';
-    const name = formData.get('name');
-    const country = formData.get('country');
-    const type = formData.get('type');
+    const name = formData.get('name')?.toString();
+    const country = formData.get('country')?.toString();
+    const type = formData.get('type')?.toString();
+    const winners = formData.get('winners')?.toString();
 
-    console.log(name, country, type);
+    console.log(name, country, type, winners);
+
+    if (!name || !country || !type || !winners) {
+      return 'Invalid data';
+    }
+
+    const newTournament = await prisma.tournament.create({
+      data: {
+        name: name,
+        country: country,
+        type: type,
+        // winners: winners,
+      },
+    });
+
+    console.log(newTournament);
+    redirect('/');
   }
 
   return (
@@ -57,9 +76,32 @@ export function TournamentForm() {
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent position="popper">
-                  <SelectItem value="major">Major</SelectItem>
-                  <SelectItem value="p1">P1</SelectItem>
-                  <SelectItem value="p2">P2</SelectItem>
+                  <SelectItem value="MAJOR">Major</SelectItem>
+                  <SelectItem value="P1">P1</SelectItem>
+                  <SelectItem value="P2">P2</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="type">Winners</Label>
+              <Select name="winners">
+                <SelectTrigger id="winners">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent position="popper">
+                  <SelectItem value="TapiaCoello">Tapia - Coello</SelectItem>
+                  <SelectItem value="ChingottoGalan">
+                    Chingotto - Galan
+                  </SelectItem>
+                  <SelectItem value="StupaDiNenno">Stupa - Di Nenno</SelectItem>
+                  <SelectItem value="NavarroLebron">
+                    Navarro - Lebron
+                  </SelectItem>
+                  <SelectItem value="GarridoYanguas">
+                    Garrido - Yanguas
+                  </SelectItem>
+                  <SelectItem value="NietoSanz">Nieto - Sanz</SelectItem>
+                  <SelectItem value="OtherCouple">Other couple</SelectItem>
                 </SelectContent>
               </Select>
             </div>

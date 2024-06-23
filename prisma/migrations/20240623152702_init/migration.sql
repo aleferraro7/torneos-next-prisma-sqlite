@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE "Tournament" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "country" TEXT NOT NULL,
+    "type" TEXT NOT NULL DEFAULT 'P2',
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL
+);

@@ -18,36 +18,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import prisma from '@/lib/prisma';
-import { redirect } from 'next/navigation';
+import { createTournament } from '@/actions/tournament-actions';
 
 export function TournamentForm() {
-  async function createTournament(formData: FormData) {
-    'use server';
-    const name = formData.get('name')?.toString();
-    const country = formData.get('country')?.toString();
-    const type = formData.get('type')?.toString();
-    const winners = formData.get('winners')?.toString();
-
-    console.log(name, country, type, winners);
-
-    if (!name || !country || !type || !winners) {
-      return 'Invalid data';
-    }
-
-    const newTournament = await prisma.tournament.create({
-      data: {
-        name: name,
-        country: country,
-        type: type,
-        // winners: winners,
-      },
-    });
-
-    console.log(newTournament);
-    redirect('/');
-  }
-
   return (
     <form action={createTournament}>
       <Card className="w-[350px]">

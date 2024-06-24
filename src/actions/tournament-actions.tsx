@@ -1,6 +1,7 @@
 'use server';
 
 import prisma from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export async function createTournament(formData: FormData) {
@@ -25,5 +26,46 @@ export async function createTournament(formData: FormData) {
   });
 
   console.log(newTournament);
+  redirect('/');
+}
+
+export async function removeTournament(formData: FormData) {
+  'use server';
+  const tournamentId = formData.get('tournamentId')?.toString();
+
+  if (!tournamentId) {
+    return;
+  }
+
+  await prisma.tournament.delete({
+    where: {
+      id: parseInt(tournamentId),
+    },
+  });
+
+  revalidatePath('/');
+}
+
+export async function updateTournament(formData: FormData) {
+  const id = formData.get('id')?.toString();
+  const name = formData.get('name')?.toString();
+  const country = formData.get('country')?.toString();
+  const type = formData.get('type')?.toString();
+
+  if (!id || !name || !country || !type) {
+    return 'Invalid data';
+  }
+
+  await prisma.tournament.update({
+    where: {
+      id: parseInt(id),
+    },
+    data: {
+      name: name,
+      country: country,
+      type: type,
+    },
+  });
+
   redirect('/');
 }

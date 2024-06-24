@@ -8,6 +8,9 @@ import {
 import clsx from 'clsx';
 import { Tournament } from '@prisma/client';
 import { Badge } from './ui/badge';
+import { TournamentButtonDelete } from './tournament-delete-button';
+import Link from 'next/link';
+import { buttonVariants } from './ui/button';
 
 export default function TournamentCard({
   tournament,
@@ -30,10 +33,17 @@ export default function TournamentCard({
       </CardHeader>
       <CardContent className="mt-4">
         <p>{tournament.country}</p>
-      </CardContent>
-      <CardFooter className="flex gap-x-4">
         <p>Winners</p>
         {/* <p>{tournament.winners}</p> */}
+      </CardContent>
+      <CardFooter className="flex justify-end gap-x-4">
+        <TournamentButtonDelete tournamentId={tournament.id} />
+        <Link
+          href={`/tournaments/${tournament.id}/edit`}
+          className={buttonVariants({ variant: 'secondary' })}
+        >
+          Edit
+        </Link>
       </CardFooter>
     </Card>
   );

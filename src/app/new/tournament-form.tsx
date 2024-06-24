@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -18,11 +18,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { createTournament } from '@/actions/tournament-actions';
+import {
+  createTournament,
+  updateTournament,
+} from '@/actions/tournament-actions';
+import { Tournament } from '@prisma/client';
+import Link from 'next/link';
 
-export function TournamentForm() {
+export function TournamentForm({ tournament }: { tournament: Tournament }) {
+  const functionAction = tournament?.id ? updateTournament : createTournament;
+
   return (
-    <form action={createTournament}>
+    <form action={functionAction}>
+      <input type="hidden" name="id" value={tournament?.id} />
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Create Tournament</CardTitle>
@@ -32,7 +40,12 @@ export function TournamentForm() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Name</Label>
-              <Input name="name" id="name" placeholder="Name of your project" />
+              <Input
+                name="name"
+                id="name"
+                placeholder="Name of your project"
+                defaultValue={tournament?.name}
+              />
             </div>
             <div>
               <Label htmlFor="country">Country</Label>
@@ -40,11 +53,12 @@ export function TournamentForm() {
                 name="country"
                 id="country"
                 placeholder="Country of the Tournament"
+                defaultValue={tournament?.country}
               />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="type">Type</Label>
-              <Select name="type">
+              <Select name="type" defaultValue={tournament?.type}>
                 <SelectTrigger id="type">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
@@ -57,7 +71,7 @@ export function TournamentForm() {
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="type">Winners</Label>
-              <Select name="winners">
+              <Select name="winners" defaultValue={tournament?.winners}>
                 <SelectTrigger id="winners">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
@@ -81,8 +95,12 @@ export function TournamentForm() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline">Cancel</Button>
-          <Button type="submit">Create</Button>
+          <Link href="/" className={buttonVariants({ variant: 'secondary' })}>
+            Cancel
+          </Link>
+          <Button type="submit">
+            {tournament?.id ? 'Update Tournament' : 'Create Tournament'}
+          </Button>
         </CardFooter>
       </Card>
     </form>

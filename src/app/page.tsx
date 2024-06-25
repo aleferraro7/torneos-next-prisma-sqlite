@@ -10,6 +10,8 @@ import {
 import prisma from '@/lib/prisma';
 import TournamentCard from '@/components/TournamentCard';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Homepage() {
   const tournaments = await prisma.tournament.findMany();
   console.log(tournaments);

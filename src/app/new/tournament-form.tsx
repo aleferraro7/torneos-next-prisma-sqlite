@@ -25,7 +25,8 @@ import {
 import { Tournament } from '@prisma/client';
 import Link from 'next/link';
 
-export function TournamentForm({ tournament }: { tournament: Tournament }) {
+// export function TournamentForm({ tournament }: { tournament: Tournament }) {
+export function TournamentForm({ tournament }: any) {
   const functionAction = tournament?.id ? updateTournament : createTournament;
 
   return (

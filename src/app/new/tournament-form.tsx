@@ -76,19 +76,21 @@ export function TournamentForm({ tournament }: { tournament: Tournament }) {
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent position="popper">
-                  <SelectItem value="TapiaCoello">Tapia - Coello</SelectItem>
-                  <SelectItem value="ChingottoGalan">
+                  <SelectItem value="Tapia - Coello">Tapia - Coello</SelectItem>
+                  <SelectItem value="Chingotto - Galan">
                     Chingotto - Galan
                   </SelectItem>
-                  <SelectItem value="StupaDiNenno">Stupa - Di Nenno</SelectItem>
-                  <SelectItem value="NavarroLebron">
+                  <SelectItem value="Stupa - Di Nenno">
+                    Stupa - Di Nenno
+                  </SelectItem>
+                  <SelectItem value="Navarro - Lebron">
                     Navarro - Lebron
                   </SelectItem>
-                  <SelectItem value="GarridoYanguas">
+                  <SelectItem value="Garrido - Yanguas">
                     Garrido - Yanguas
                   </SelectItem>
-                  <SelectItem value="NietoSanz">Nieto - Sanz</SelectItem>
-                  <SelectItem value="OtherCouple">Other couple</SelectItem>
+                  <SelectItem value="Nieto - Sanz">Nieto - Sanz</SelectItem>
+                  <SelectItem value="Other couple">Other couple</SelectItem>
                 </SelectContent>
               </Select>
             </div>

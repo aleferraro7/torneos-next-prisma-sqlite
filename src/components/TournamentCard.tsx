@@ -33,8 +33,10 @@ export default function TournamentCard({
       </CardHeader>
       <CardContent className="mt-4">
         <p>{tournament.country}</p>
+      </CardContent>
+      <CardContent className="mt-4 flex justify-between">
         <p>Winners</p>
-        {/* <p>{tournament.winners}</p> */}
+        <p>{tournament.winners}</p>
       </CardContent>
       <CardFooter className="flex justify-end gap-x-4">
         <TournamentButtonDelete tournamentId={tournament.id} />

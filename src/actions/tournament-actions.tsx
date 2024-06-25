@@ -21,7 +21,7 @@ export async function createTournament(formData: FormData) {
       name: name,
       country: country,
       type: type,
-      // winners: winners,
+      winners: winners,
     },
   });
 
@@ -51,8 +51,9 @@ export async function updateTournament(formData: FormData) {
   const name = formData.get('name')?.toString();
   const country = formData.get('country')?.toString();
   const type = formData.get('type')?.toString();
+  const winners = formData.get('winners')?.toString();
 
-  if (!id || !name || !country || !type) {
+  if (!id || !name || !country || !type || !winners) {
     return 'Invalid data';
   }
 
@@ -64,6 +65,7 @@ export async function updateTournament(formData: FormData) {
       name: name,
       country: country,
       type: type,
+      winners: winners,
     },
   });
 
